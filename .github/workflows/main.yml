@@ -1,0 +1,31 @@
+name: Update from Original Repository
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # Schedule to run every hour, adjust as needed
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Mirrored Repository
+        uses: actions/checkout@v2
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "amrathesh@arm.com"
+          git config --global user.name "Amrathesh"
+
+      - name: Fetch and Merge Original Repository Changes
+        run: |
+          # Fetch changes from the original repository
+          git remote add original https://github.com/ARM-software/arm-systemready
+          git fetch original
+
+          # Merge fetched changes into the mirrored repository's branch
+          git merge --ff-only original/main  # Change to the appropriate branch name
+
+          # Push merged changes to the mirrored repository
+          git push origin main  # Change to the appropriate branch name
