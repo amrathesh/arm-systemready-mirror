@@ -25,7 +25,7 @@ jobs:
           git fetch original
 
           # Merge fetched changes into the mirrored repository's branch
-          git merge --ff-only --allow-unrelated-histories original/main  # Change to the appropriate branch name
+          git merge  --no-ff --allow-unrelated-histories original/main  # Change to the appropriate branch name
 
           # Push merged changes to the mirrored repository
           git push origin main  # Change to the appropriate branch name
